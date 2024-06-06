@@ -1,2 +1,5 @@
 # Ignore all files in the results directory
 results/
+
+# Ignore all files in the lib directory
+lib/
