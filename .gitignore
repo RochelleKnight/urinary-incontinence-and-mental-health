@@ -3,3 +3,6 @@ results/
 
 # Ignore all files in the lib directory
 lib/
+
+# Ignore all files in the lib directory
+data/
