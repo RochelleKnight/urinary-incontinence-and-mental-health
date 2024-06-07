@@ -6,3 +6,5 @@ lib/
 
 # Ignore all files in the lib directory
 data/
+
+.Rhistory
