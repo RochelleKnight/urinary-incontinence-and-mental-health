@@ -4,7 +4,7 @@ results/
 # Ignore all files in the lib directory
 lib/
 
-# Ignore all files in the lib directory
+# Ignore all files in the data directory
 data/
 
 .Rhistory
