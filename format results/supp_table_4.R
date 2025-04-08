@@ -84,7 +84,7 @@ mr_results <- mr_results %>% dplyr::mutate(outcome = dplyr::case_when(outcome ==
                                                                       outcome == "stress_urinary_incontinence" ~ "Stress urinary incontinence",
                                                                       outcome == "urgency_urinary_incontinence" ~ "Urgency urinary incontinence",
                                                                       outcome == "mixed_urinary_incontinence" ~ "Mixed urinary incontinence",
-                                                                      outcome == "MDD" ~ "Major depressive disorder" ,
+                                                                      outcome == "MDD" ~ "Depression" ,
                                                                       outcome == "broad_depression_phenotype" ~ "Broad depression phenotype",
                                                                       outcome == "anxiety" ~ "Anxiety" ,
                                                                       outcome == "neuroticism" ~ "Neuroticism" ,
@@ -92,10 +92,10 @@ mr_results <- mr_results %>% dplyr::mutate(outcome = dplyr::case_when(outcome ==
 
 # Order results
 mr_results$order <- paste0(mr_results$exposure, " , ", mr_results$outcome)
-mr_results$order <- factor(mr_results$order, levels = c(paste0("Urinary incontinence , ",c("Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")),
-                                                        paste0("Stress urinary incontinence , ",c("Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")),
-                                                        paste0("Urgency urinary incontinence , ",c("Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")),
-                                                        paste0("Mixed urinary incontinence , ",c("Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")),
+mr_results$order <- factor(mr_results$order, levels = c(paste0("Urinary incontinence , ",c("Anxiety","Depression","Broad depression phenotype","Neuroticism")),
+                                                        paste0("Stress urinary incontinence , ",c("Anxiety","Depression","Broad depression phenotype","Neuroticism")),
+                                                        paste0("Urgency urinary incontinence , ",c("Anxiety","Depression","Broad depression phenotype","Neuroticism")),
+                                                        paste0("Mixed urinary incontinence , ",c("Anxiety","Depression","Broad depression phenotype","Neuroticism")),
                                                         paste0("Anxiety , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence"))))
 mr_results <- mr_results[order(mr_results$order),]
 mr_results$order <- NULL

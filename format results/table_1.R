@@ -126,7 +126,7 @@ snps_used <- snps_used %>% rename("Total SNPs remaining following harmonisation"
 
 # Tidy exposure and outcome variable names
 snps_used <- snps_used %>% dplyr::mutate(exposure = dplyr::case_when(exposure == "urinary_incontinence" ~ "Urinary incontinence" ,
-                                                                       exposure == "MDD" ~ "Major depressive disorder" ,
+                                                                       exposure == "MDD" ~ "Depression" ,
                                                                        exposure == "broad_depression_phenotype" ~ "Broad depression phenotype",
                                                                        exposure == "anxiety" ~ "Anxiety" ,
                                                                        exposure == "neuroticism" ~ "Neuroticism",
@@ -136,7 +136,7 @@ snps_used <- snps_used %>% dplyr::mutate(outcome = dplyr::case_when(outcome == "
                                                                       outcome == "stress_urinary_incontinence" ~ "Stress urinary incontinence",
                                                                       outcome == "urgency_urinary_incontinence" ~ "Urgency urinary incontinence",
                                                                       outcome == "mixed_urinary_incontinence" ~ "Mixed urinary incontinence",
-                                                                      outcome == "MDD" ~ "Major depressive disorder" ,
+                                                                      outcome == "MDD" ~ "Depression" ,
                                                                       outcome == "broad_depression_phenotype" ~ "Broad depression phenotype",
                                                                       outcome == "anxiety" ~ "Anxiety" ,
                                                                       outcome == "neuroticism" ~ "Neuroticism" ,
@@ -144,8 +144,8 @@ snps_used <- snps_used %>% dplyr::mutate(outcome = dplyr::case_when(outcome == "
 
 
 # Order rows
-snps_used$exposure <- factor(snps_used$exposure, levels = c("Urinary incontinence","Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism"))
-snps_used$outcome <- factor(snps_used$outcome, levels = c("Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism",
+snps_used$exposure <- factor(snps_used$exposure, levels = c("Urinary incontinence","Anxiety","Depression","Broad depression phenotype","Neuroticism"))
+snps_used$outcome <- factor(snps_used$outcome, levels = c("Anxiety","Depression","Broad depression phenotype","Neuroticism",
                                                           "Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence"))
 
 snps_used <-  snps_used[order(snps_used$exposure,snps_used$outcome),]

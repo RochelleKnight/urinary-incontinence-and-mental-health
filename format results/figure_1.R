@@ -41,7 +41,7 @@ mr_results$est <- paste0(sprintf("%.2f",mr_results$odds_ratio)," (",sprintf("%.2
 
 # Format exposure name
 mr_results <- mr_results %>% dplyr::mutate(exposure = dplyr::case_when(exposure == "urinary_incontinence_p_value_5e-08" ~ "Urinary incontinence" ,
-                                                                       exposure == "MDD_p_value_5e-08" ~ "Major depressive disorder" ,
+                                                                       exposure == "MDD_p_value_5e-08" ~ "Depression" ,
                                                                        exposure == "broad_depression_phenotype_p_value_5e-08" ~ "Broad depression phenotype",
                                                                        exposure == "anxiety_p_value_5e-08" ~ "Anxiety" ,
                                                                        exposure == "neuroticism_p_value_5e-08" ~ "Neuroticism",
@@ -51,7 +51,7 @@ mr_results <- mr_results %>% dplyr::mutate(outcome = dplyr::case_when(outcome ==
                                                                       outcome == "stress_urinary_incontinence" ~ "Stress urinary incontinence",
                                                                       outcome == "urgency_urinary_incontinence" ~ "Urgency urinary incontinence",
                                                                       outcome == "mixed_urinary_incontinence" ~ "Mixed urinary incontinence",
-                                                                      outcome == "MDD" ~ "Major depressive disorder" ,
+                                                                      outcome == "MDD" ~ "Depression" ,
                                                                       outcome == "broad_depression_phenotype" ~ "Broad depression phenotype",
                                                                       outcome == "anxiety" ~ "Anxiety" ,
                                                                       outcome == "neuroticism" ~ "Neuroticism" ,
@@ -59,25 +59,25 @@ mr_results <- mr_results %>% dplyr::mutate(outcome = dplyr::case_when(outcome ==
 
 
 mr_results$outcome <- ifelse(mr_results$exposure == "Urinary incontinence", paste0(strrep(" ",2), mr_results$outcome,strrep(" ",1)),mr_results$outcome)
-mr_results$outcome <- ifelse(mr_results$exposure == "Major depressive disorder", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",2)),mr_results$outcome)
-mr_results$outcome <- ifelse(mr_results$exposure == "Broad depression phenotype", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",3)),mr_results$outcome)
-mr_results$outcome <- ifelse(mr_results$exposure == "Neuroticism", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",4)),mr_results$outcome)
-mr_results$outcome <- ifelse(mr_results$exposure == "Anxiety", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",5)),mr_results$outcome)
+mr_results$outcome <- ifelse(mr_results$exposure == "Anxiety", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",2)),mr_results$outcome)
+mr_results$outcome <- ifelse(mr_results$exposure == "Depression", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",3)),mr_results$outcome)
+mr_results$outcome <- ifelse(mr_results$exposure == "Broad depression phenotype", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",4)),mr_results$outcome)
+mr_results$outcome <- ifelse(mr_results$exposure == "Neuroticism", paste0(strrep(" ",2),mr_results$outcome,strrep(" ",5)),mr_results$outcome)
 
 mr_results[nrow(mr_results)+1,] <- c("Urinary incontinence →","Urinary incontinence →", NA,NA,NA,NA,NA)
-mr_results[nrow(mr_results)+1,] <- c("Major depressive disorder →","Major depressive disorder →", NA,NA,NA,NA,NA)
-mr_results[nrow(mr_results)+1,] <- c("Broad depression phenotype →","Broad depression phenotype →", NA,NA,NA,NA,NA)
-mr_results[nrow(mr_results)+1,] <- c("Anxiety →","Anxiety →",NA,NA,NA,NA,NA)
+mr_results[nrow(mr_results)+1,] <- c("Anxiety →","Anxiety →", NA,NA,NA,NA,NA)
+mr_results[nrow(mr_results)+1,] <- c("Depression →","Depression →", NA,NA,NA,NA,NA)
+mr_results[nrow(mr_results)+1,] <- c("Broad depression phenotype →","Broad depression phenotype →",NA,NA,NA,NA,NA)
 mr_results[nrow(mr_results)+1,] <- c("Neuroticism →","Neuroticism →", NA,NA,NA,NA,NA)
 
 mr_results <- mr_results %>% mutate(across(c(odds_ratio,upper_CI,lower_CI), as.numeric))
 
 
-mr_results$outcome <- factor(mr_results$outcome, levels = c("Urinary incontinence →",paste0(strrep(" ",2),"Major depressive disorder",strrep(" ",1)),paste0(strrep(" ",2),"Broad depression phenotype",strrep(" ",1)),paste0(strrep(" ",2),"Anxiety", strrep(" ",1)),
-                                                            "Major depressive disorder →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",2)),
-                                                            "Broad depression phenotype →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",3)),
-                                                            "Neuroticism →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",4)),
-                                                            "Anxiety →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",5))))
+mr_results$outcome <- factor(mr_results$outcome, levels = c("Urinary incontinence →",paste0(strrep(" ",2),"Anxiety",strrep(" ",1)),paste0(strrep(" ",2),"Depression",strrep(" ",1)),paste0(strrep(" ",2),"Broad depression phenotype", strrep(" ",1)),
+                                                            "Anxiety →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",2)),
+                                                            "Depression →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",3)),
+                                                            "Broad depression phenotype →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",4)),
+                                                            "Neuroticism →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",5))))
 
 mr_results <- mr_results[order(mr_results$outcome),]
 
@@ -105,11 +105,11 @@ p
 table_results <- mr_results %>% select(outcome,est,colour)
 table_results$outcome <- as.character(table_results$outcome)
 
-table_results$outcome <- factor(table_results$outcome, levels = rev(c("Urinary incontinence →",paste0(strrep(" ",2),"Major depressive disorder",strrep(" ",1)),paste0(strrep(" ",2),"Broad depression phenotype",strrep(" ",1)),paste0(strrep(" ",2),"Anxiety", strrep(" ",1)),
-                                                                      "Major depressive disorder →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",2)),
-                                                                      "Broad depression phenotype →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",3)),
-                                                                      "Neuroticism →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",4)),
-                                                                      "Anxiety →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",5)))))
+table_results$outcome <- factor(table_results$outcome, levels = rev(c("Urinary incontinence →",paste0(strrep(" ",2),"Anxiety",strrep(" ",1)),paste0(strrep(" ",2),"Depression",strrep(" ",1)),paste0(strrep(" ",2),"Broad depression phenotype", strrep(" ",1)),
+                                                                      "Anxiety →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",2)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",2)),
+                                                                      "Depression →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",3)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",3)),
+                                                                      "Broad depression phenotype →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",4)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",4)),
+                                                                      "Neuroticism →",paste0(strrep(" ",2),"Urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Stress urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Urgency urinary incontinence",strrep(" ",5)),paste0(strrep(" ",2),"Mixed urinary incontinence",strrep(" ",5)))))
 
 table_results <- table_results[order(table_results$outcome),]
 

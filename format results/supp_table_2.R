@@ -65,7 +65,7 @@ mr_results <- mr_results %>%
 
 # Format names
 mr_results <- mr_results %>% dplyr::mutate(exposure = dplyr::case_when(exposure == "urinary_incontinence_p_value_5e-08" ~ "Urinary incontinence" ,
-                                                                       exposure == "MDD_p_value_5e-08" ~ "Major depressive disorder" ,
+                                                                       exposure == "MDD_p_value_5e-08" ~ "Depression" ,
                                                                        exposure == "broad_depression_phenotype_p_value_5e-08" ~ "Broad depression phenotype",
                                                                        exposure == "anxiety_p_value_5e-08" ~ "Anxiety" ,
                                                                        exposure == "neuroticism_p_value_5e-08" ~ "Neuroticism",
@@ -75,7 +75,7 @@ mr_results <- mr_results %>% dplyr::mutate(outcome = dplyr::case_when(outcome ==
                                                                       outcome == "stress_urinary_incontinence" ~ "Stress urinary incontinence",
                                                                       outcome == "urgency_urinary_incontinence" ~ "Urgency urinary incontinence",
                                                                       outcome == "mixed_urinary_incontinence" ~ "Mixed urinary incontinence",
-                                                                      outcome == "MDD" ~ "Major depressive disorder" ,
+                                                                      outcome == "MDD" ~ "Depression" ,
                                                                       outcome == "broad_depression_phenotype" ~ "Broad depression phenotype",
                                                                       outcome == "anxiety" ~ "Anxiety" ,
                                                                       outcome == "neuroticism" ~ "Neuroticism" ,
@@ -84,10 +84,10 @@ mr_results <- mr_results %>% dplyr::mutate(outcome = dplyr::case_when(outcome ==
 # Order results
 mr_results$order <- paste0(mr_results$exposure, " , ", mr_results$outcome)
 
-mr_results$order <- factor(mr_results$order, levels = c(paste0("Urinary incontinence , ",c("Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")),
-                                                        paste0("Major depressive disorder , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence")),
-                                                        paste0("Broad depression phenotype , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence")),
+mr_results$order <- factor(mr_results$order, levels = c(paste0("Urinary incontinence , ",c("Anxiety","Depression","Broad depression phenotype","Neuroticism")),
                                                         paste0("Anxiety , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence")),
+                                                        paste0("Depression , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence")),
+                                                        paste0("Broad depression phenotype , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence")),
                                                         paste0("Neuroticism , ",c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence"))))
 mr_results <- mr_results[order(mr_results$order),]
 mr_results$order <- NULL

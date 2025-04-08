@@ -43,7 +43,7 @@ f_stat_results <- f_stat_results %>% dplyr::mutate(exposure = dplyr::case_when(e
                                                                                exposure == "mixed_urinary_incontinence_p_value_5e-06" ~ "Mixed urinary incontinence",
                                                                                exposure == "stress_urinary_incontinence_p_value_5e-06" ~ "Stress urinary incontinence",
                                                                                exposure == "urgency_urinary_incontinence_p_value_5e-06" ~ "Urgency urinary incontinence",
-                                                                               exposure %in% c("MDD_p_value_5e-08","MDD_p_value_5e-06") ~ "Major depressive disorder",
+                                                                               exposure %in% c("MDD_p_value_5e-08","MDD_p_value_5e-06") ~ "Depression",
                                                                                exposure %in% c("broad_depression_phenotype_p_value_5e-08","broad_depression_phenotype_p_value_5e-06") ~ "Broad depression phenotype",
                                                                                exposure %in% c("anxiety_p_value_5e-08","anxiety_p_value_5e-06") ~ "Anxiety",
                                                                                exposure %in% c("neuroticism_p_value_5e-08","neuroticism_p_value_5e-06") ~ "Neuroticism",
@@ -53,7 +53,7 @@ f_stat_results <- f_stat_results %>% dplyr::mutate(outcome = dplyr::case_when(ou
                                                                       outcome == "stress_urinary_incontinence" ~ "Stress urinary incontinence",
                                                                       outcome == "urgency_urinary_incontinence" ~ "Urgency urinary incontinence",
                                                                       outcome == "mixed_urinary_incontinence" ~ "Mixed urinary incontinence",
-                                                                      outcome == "MDD" ~ "Major depressive disorder" ,
+                                                                      outcome == "MDD" ~ "Depression" ,
                                                                       outcome == "broad_depression_phenotype" ~ "Broad depression phenotype",
                                                                       outcome == "anxiety" ~ "Anxiety" ,
                                                                       outcome == "neuroticism" ~ "Neuroticism" ,
@@ -61,10 +61,10 @@ f_stat_results <- f_stat_results %>% dplyr::mutate(outcome = dplyr::case_when(ou
 
 # Order results
 f_stat_results$exposure <- factor(f_stat_results$exposure, levels=c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence",
-                                                                    "Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")) 
+                                                                    "Anxiety","Depression","Broad depression phenotype","Neuroticism")) 
 
 f_stat_results$outcome <- factor(f_stat_results$outcome, levels=c("Urinary incontinence","Stress urinary incontinence","Urgency urinary incontinence","Mixed urinary incontinence",
-                                                                    "Major depressive disorder","Broad depression phenotype","Anxiety","Neuroticism")) 
+                                                                  "Anxiety","Depression","Broad depression phenotype","Neuroticism")) 
 
 f_stat_results$analysis <- factor(f_stat_results$analysis, levels=c("main","sensitivity")) 
 f_stat_results <- f_stat_results[order(f_stat_results$exposure,f_stat_results$outcome,f_stat_results$analysis),]
