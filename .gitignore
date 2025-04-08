@@ -9,3 +9,6 @@ data/
 
 # Ignore all .Rhistory files
 .Rhistory
+
+# Ignore all files in the archive directory
+preprocess/archive/
